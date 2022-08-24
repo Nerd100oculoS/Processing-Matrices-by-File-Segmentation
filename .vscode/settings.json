@@ -1,0 +1,9 @@
+{
+    "makefile.extensionOutputFolder": "./.vscode",
+    "C_Cpp.dimInactiveRegions": false,
+    "files.associations": {
+        "fstream": "cpp",
+        "sstream": "cpp",
+        "vector": "cpp"
+    }
+}
