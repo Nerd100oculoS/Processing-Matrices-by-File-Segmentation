@@ -21,12 +21,20 @@ typedef struct Coodinates{
 
 }COO;
 
+void InicializateCOO(COO *c); // Inicializa a struct
+
+/**
+ * Funções Gerais 
+ */
 void ReadFiles();
 void PrintMatriz(vector<vector<int> > matriz);
 
-void ReadFile_BigMatrix();
-void TokenizarMatrix(string line_token, int count_line);
-
-void ReadFile_Coordinates();
+/**
+ * Funções relacionadas ao processamento da Matriz;
+ */
+void ReadFile_BigMatrix(COO *c);
+void TokenizarQuadrante(COO *c, string line_token);
+void ReadFile_Coordinates(COO *c);
 void TokenizarCoodinates(COO *c, string line_token, int count_line);
+
 #endif 

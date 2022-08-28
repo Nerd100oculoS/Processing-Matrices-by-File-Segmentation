@@ -2,7 +2,7 @@
 
 int main(){
 
-    //ReadFile_BigMatrix();
-    ReadFile_Coordinates();
+    ReadFiles();
+    
     return 0;
 }

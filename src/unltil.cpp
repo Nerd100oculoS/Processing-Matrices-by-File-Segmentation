@@ -1,7 +1,16 @@
 #include "until.hpp"
 
+void InicializateCOO(COO *c){
+
+    c->p1_i = 0;
+    c->p1_j = 0;
+    c->p2_i = 0;
+    c->p2_j = 0;
+
+}
+
 void TokenizarCoodinates(COO *c, string line_token, int count_line){
-    
+ 
     stringstream sstream(line_token);
     string token;
     char del = ',';
@@ -10,7 +19,7 @@ void TokenizarCoodinates(COO *c, string line_token, int count_line){
     // Da linha 11 a 23 é possivel otimizar pois a repetição de codigo.
     while(getline(sstream,token,del)){
 
-        if(count_line == 1){
+        if(count_line == 0){
              
             if(count_column == 0){c->p1_i = stoi(token);}
             else{c->p1_j = stoi(token);}
@@ -26,11 +35,10 @@ void TokenizarCoodinates(COO *c, string line_token, int count_line){
     }
 }
 
-void ReadFile_Coordinates(){
+void ReadFile_Coordinates(COO *c){
 
-    COO c;
     string line, token;
-    int count_line = 1;
+    int count_line = 0;
 
     ifstream file("./src/input/coordinates.txt");
 
@@ -40,37 +48,42 @@ void ReadFile_Coordinates(){
 
             getline(file,line);
 
-            TokenizarCoodinates(&c,line,count_line);
+            TokenizarCoodinates(c,line,count_line);
 
             count_line++;
         }
-    }
+    
+    }else{file.close();}
 
-    cout << "p1 = " << c.p1_i << " , " << c.p1_j << endl;
-    cout << "p2 = " << c.p2_i << " , " << c.p2_j << endl;
+    cout << "p1 = " << c->p1_i << " , " << c->p1_j << endl;
+    cout << "p2 = " << c->p2_i << " , " << c->p2_j << endl;
 
 }
 
-void TokenizarMatrix(string line_token, int count_line){
+void TokenizarQuadrante(COO *c, string line_token){
 
     stringstream sstream(line_token);
     string token;
-    char del = ' '; //space é o delimitador
-    int count_column = 0;
+    char del = ' ';
+    int count_column = 1;
 
     while(getline(sstream,token,del)){
 
+        if(count_column >= c->p1_j && count_column <= c->p2_j){
+
+            cout << token << " ";
+        }
+
         count_column++;
     }
-
-    cout << "quantidade de colunas na linha " << count_line << " = " << count_column << endl;
+    
+    cout << endl;
 }
 
-void ReadFile_BigMatrix(){
+void ReadFile_BigMatrix(COO *c){
 
-    string line, token;
+    string line;
     int count_line = 1;
-
     ifstream file("./src/input/original_matriz.txt");
 
     if(file.is_open()){
@@ -79,10 +92,30 @@ void ReadFile_BigMatrix(){
 
             getline(file,line);
 
-            TokenizarMatrix(line,count_line);
+            if(count_line >= c->p1_i && count_line <= c->p2_i){
+                
+                TokenizarQuadrante(c,line);
 
+            }
+            //cout << endl;
             count_line++;
+            
         }
-    }
+
+    }else{file.close();}
+
+}
+
+void ReadFiles(){
+
+    COO c;
+    InicializateCOO(&c);
+    
+    ReadFile_Coordinates(&c);
+    cout << endl << endl;
+    ReadFile_BigMatrix(&c);
+
+    //cout << "p1 = " << c.p1_i << " , " << c.p1_j << endl;
+    //cout << "p2 = " << c.p2_i << " , " << c.p2_j << endl;
 
 }
