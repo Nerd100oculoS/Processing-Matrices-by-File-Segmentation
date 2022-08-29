@@ -9,6 +9,37 @@ void InicializateCOO(COO *c){
 
 }
 
+void VerifySizeMatrix(){
+
+    int count_line, count_column;
+    count_line = count_column = 0;
+    string line, token;
+    char del = ' '; 
+    ifstream file("./src/input/original_matriz.txt");
+
+    if(file.is_open()){
+
+        while(!file.eof()){
+
+            getline(file,line);        
+            stringstream sstream(line);
+
+            while(getline(sstream,token,del)){
+
+                count_column++;
+            }
+    
+            count_line++;
+        }
+
+        cout << "Tamanho da matrix = (" << count_line << "," << count_column/count_line << ")\n";
+
+    }else{cout << "Erro ao abrir o arquivo!" << endl;}
+
+    file.close();
+    return;
+}
+
 void TokenizarCoodinates(COO *c, string line_token, int count_line){
  
     stringstream sstream(line_token);
@@ -52,12 +83,14 @@ void ReadFile_Coordinates(COO *c){
 
             count_line++;
         }
-    
-    }else{file.close();}
 
-    cout << "p1 = " << c->p1_i << " , " << c->p1_j << endl;
-    cout << "p2 = " << c->p2_i << " , " << c->p2_j << endl;
+        cout << "p1 = " << c->p1_i << " , " << c->p1_j << endl;
+        cout << "p2 = " << c->p2_i << " , " << c->p2_j << endl;
 
+    }else{cout << "Erro ao abrir o arquivo!" << endl;}
+
+    file.close();
+    return;
 }
 
 void TokenizarQuadrante(COO *c, string line_token){
@@ -102,12 +135,16 @@ void ReadFile_BigMatrix(COO *c){
             
         }
 
-    }else{file.close();}
+    }else{cout << "Erro ao abrir o arquivo!" << endl;}
 
+    file.close();
+    return;
 }
 
 void ReadFiles(){
 
+    VerifySizeMatrix();
+    
     COO c;
     InicializateCOO(&c);
     
@@ -117,5 +154,5 @@ void ReadFiles(){
 
     //cout << "p1 = " << c.p1_i << " , " << c.p1_j << endl;
     //cout << "p2 = " << c.p2_i << " , " << c.p2_j << endl;
-
+    return;
 }

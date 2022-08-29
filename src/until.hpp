@@ -28,6 +28,7 @@ void InicializateCOO(COO *c); // Inicializa a struct
  */
 void ReadFiles();
 void PrintMatriz(vector<vector<int> > matriz);
+void VerifySizeMatrix(); //Verifica quantas linhas e quantas colunas a matriz possui
 
 /**
  * Funções relacionadas ao processamento da Matriz;
