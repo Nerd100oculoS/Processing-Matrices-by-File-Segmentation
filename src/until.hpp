@@ -6,6 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <map>
 
 using namespace std;
 
@@ -22,6 +23,8 @@ typedef struct Coodinates{
 }COO;
 
 void InicializateCOO(COO *c); // Inicializa a struct
+int **CriaMatriz(int n_rows, int n_columns);
+void ImprimeVector(vector<vector<int> > *v);
 
 /**
  * Funções Gerais 
@@ -34,7 +37,7 @@ void VerifySizeMatrix(); //Verifica quantas linhas e quantas colunas a matriz po
  * Funções relacionadas ao processamento da Matriz;
  */
 void ReadFile_BigMatrix(COO *c);
-void TokenizarQuadrante(COO *c, string line_token);
+void TokenizarQuadrante(COO *c, string line_token,int cont_line, vector<vector<int> > *v);
 void ReadFile_Coordinates(COO *c);
 void TokenizarCoodinates(COO *c, string line_token, int count_line);
 
