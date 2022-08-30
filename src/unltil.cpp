@@ -7,32 +7,40 @@ void InicializateCOO(COO *c){
     c->p2_i = 0;
     c->p2_j = 0;
 
+    c->size_line = 0;
+    c->size_column = 0;
 }
 
-int **CriaMatriz(int n_rows, int n_columns){
-    
-    int **M = (int**)malloc(n_rows*sizeof(int*)); 
-    
-    for(int i = 0; i < n_rows; i++){
+void SizeMatrixAll(COO *c){
 
-        M[i] = (int*)malloc(n_columns*sizeof(int));
+    c->size_line = c->p2_i - c->p1_i + 1;
+    c->size_column = c->p2_j - c->p1_j + 1;
 
-    }
-
-    return M;
 }
 
-void ImprimeMatriz(int **M, int n_rows, int n_columns){
+void PrintMatrixQuandrant(vector<vector<int> > *v){
 
-    puts("\n");
+    vector<vector<int> >::iterator it,itr;
+    
+    for(it = v->begin(); it < v->end(); ++it){
 
-    for(int i = 0; i < n_rows; i++){
+        for(int n: *it){
 
-        for(int j = 0; j < n_columns; j++){
-
-            printf("[%d][%d] = %d\t", i, j, M[i][j]);
+            cout << n << " ";
         }
-        puts("\n");
+
+        cout << endl;
+    }
+}
+
+void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, int count_line, int count_column){
+    
+    for(int i = 0; i < count_line; i++){
+        
+        for(int j = 0; j < count_column; j++){
+
+            result->at(j).at(i) = v->at(i).at(j);
+        }
     }
 
 }
@@ -150,28 +158,27 @@ void TokenizarQuadrante(COO *c, string line_token, int cont_line, vector<vector<
 
 void ReadFile_BigMatrix(COO *c){
 
-    string line;
+    SizeMatrixAll(c);
+    string line_string;
     int count_line = 1;
     ifstream file("./src/input/teste.txt");
     int cont_line = 0;
 
-    int lineI = c->p2_i - c->p1_i + 1;
-    int column = c->p2_j - c->p1_j + 1;
-    cout << lineI << "," << column << endl;
+    //int lineI = c->p2_i - c->p1_i + 1;
+    //int column = c->p2_j - c->p1_j + 1;
+    cout << c->size_line << "," << c->size_column << endl;
 
-    vector<vector<int> > v(lineI, vector<int> (column));
-    
-    //int **m = CriaMatriz(lineI,column);
+    vector<vector<int> > v(c->size_line, vector<int> (c->size_column));
 
     if(file.is_open()){
 
         while(!file.eof()){
 
-            getline(file,line);
+            getline(file,line_string);
 
             if(count_line >= c->p1_i && count_line <= c->p2_i){
                 
-                TokenizarQuadrante(c,line,cont_line, &v);
+                TokenizarQuadrante(c,line_string,cont_line, &v);
                 cont_line++;
             }
             //cout << endl;
@@ -180,11 +187,19 @@ void ReadFile_BigMatrix(COO *c){
         }
 
     }else{cout << "Erro ao abrir o arquivo!" << endl;}
-    //cout << endl << endl;
-    ImprimeVector(&v);
-    //ImprimeMatriz(m,lineI,column);
 
     file.close();
+    //cout << endl << endl;
+    PrintMatrixQuandrant(&v);
+    //ImprimeMatriz(m,lineI,column);
+    cout << endl;
+
+    vector<vector<int> > result(c->size_line, vector<int> (c->size_column));
+
+    MakeTransposeMatrix(&v, &result, c->size_line, c->size_column);
+
+    PrintMatrixQuandrant(&result);
+
     return;
 }
 
@@ -199,22 +214,5 @@ void ReadFiles(){
     cout << endl << endl;
     ReadFile_BigMatrix(&c);
 
-    //cout << "p1 = " << c.p1_i << " , " << c.p1_j << endl;
-    //cout << "p2 = " << c.p2_i << " , " << c.p2_j << endl;
     return;
-}
-
-void ImprimeVector(vector<vector<int> > *v){
-
-    vector<vector<int> >::iterator it;
-    
-    for(it = v->begin(); it < v->end(); ++it){
-
-        for(int n: *it){
-
-            cout << n << " ";
-        }
-
-        cout << endl;
-    }
 }

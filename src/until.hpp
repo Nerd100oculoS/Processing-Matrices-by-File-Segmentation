@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-#include <map>
+
 
 using namespace std;
 
@@ -20,12 +20,17 @@ typedef struct Coodinates{
     int p2_i;
     int p2_j;
 
+    //Tamanho da matriz
+    int size_line;
+    int size_column;
+
 }COO;
 
 void InicializateCOO(COO *c); // Inicializa a struct
-int **CriaMatriz(int n_rows, int n_columns);
-void ImprimeVector(vector<vector<int> > *v);
-
+void SizeMatrixAll(COO *c); // coloca o tamanho das matrizes
+void PrintMatrixQuandrant(vector<vector<int> > *v);
+void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, int count_line, int count_column);
+void MakeMultplicationAndStor();
 /**
  * Funções Gerais 
  */
