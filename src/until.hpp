@@ -29,8 +29,8 @@ typedef struct Coodinates{
 void InicializateCOO(COO *c); // Inicializa a struct
 void SizeMatrixAll(COO *c); // coloca o tamanho das matrizes
 void PrintMatrixQuandrant(vector<vector<int> > *v);
-void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, int count_line, int count_column);
-void MakeMultplicationAndStor();
+void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c);
+void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c);
 /**
  * Funções Gerais 
  */

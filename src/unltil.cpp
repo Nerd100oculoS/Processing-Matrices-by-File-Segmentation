@@ -33,16 +33,36 @@ void PrintMatrixQuandrant(vector<vector<int> > *v){
     }
 }
 
-void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, int count_line, int count_column){
+void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c){
     
-    for(int i = 0; i < count_line; i++){
+    for(int i = 0; i < c->size_line; i++){
         
-        for(int j = 0; j < count_column; j++){
+        for(int j = 0; j < c->size_column; j++){
 
             result->at(j).at(i) = v->at(i).at(j);
         }
     }
 
+}
+
+void MakeMultplicationMatrix(vector<vector<int> > *v,vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c){
+
+    int aux = 0;
+
+    for(int i = 0; i < c->size_line; i++){
+        
+        for(int j = 0; j < c->size_column; j++){
+
+            for(int x = 0; x < c->p2_i; x++){
+
+                aux += v->at(i).at(x) * result->at(x).at(j);
+            
+            }
+
+            result_final->at(i).at(j) = aux;
+            aux = 0;
+        }
+    }
 }
 
 void VerifySizeMatrix(){
@@ -161,9 +181,9 @@ void ReadFile_BigMatrix(COO *c){
     SizeMatrixAll(c);
     string line_string;
     int count_line = 1;
-    ifstream file("./src/input/teste.txt");
+    ifstream file("./src/input/original_matriz.txt");
     int cont_line = 0;
-
+    
     //int lineI = c->p2_i - c->p1_i + 1;
     //int column = c->p2_j - c->p1_j + 1;
     cout << c->size_line << "," << c->size_column << endl;
@@ -195,10 +215,11 @@ void ReadFile_BigMatrix(COO *c){
     cout << endl;
 
     vector<vector<int> > result(c->size_line, vector<int> (c->size_column));
+    vector<vector<int> > result_final(c->size_line, vector<int> (c->size_column));
+    MakeTransposeMatrix(&v, &result,c);
+    MakeMultplicationMatrix(&v, &result,&result_final, c);
 
-    MakeTransposeMatrix(&v, &result, c->size_line, c->size_column);
-
-    PrintMatrixQuandrant(&result);
+    PrintMatrixQuandrant(&result_final);
 
     return;
 }
