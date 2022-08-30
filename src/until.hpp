@@ -24,6 +24,8 @@ typedef struct Coodinates{
     int size_line;
     int size_column;
 
+    string key;
+
 }COO;
 
 void InicializateCOO(COO *c); // Inicializa a struct

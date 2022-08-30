@@ -9,10 +9,13 @@ void InicializateCOO(COO *c){
 
     c->size_line = 0;
     c->size_column = 0;
+
+    string key = "";
 }
 
 void SizeMatrixAll(COO *c){
 
+    c->key = to_string(c->p1_i) + ',' + to_string(c->p1_j) + ' ' + to_string(c->p2_i) + ',' + to_string(c->p2_j);
     c->size_line = c->p2_i - c->p1_i + 1;
     c->size_column = c->p2_j - c->p1_j + 1;
 
@@ -187,7 +190,7 @@ void ReadFile_BigMatrix(COO *c){
     //int lineI = c->p2_i - c->p1_i + 1;
     //int column = c->p2_j - c->p1_j + 1;
     cout << c->size_line << "," << c->size_column << endl;
-
+    cout << c->key << endl << endl;
     vector<vector<int> > v(c->size_line, vector<int> (c->size_column));
 
     if(file.is_open()){
@@ -216,6 +219,7 @@ void ReadFile_BigMatrix(COO *c){
 
     vector<vector<int> > result(c->size_line, vector<int> (c->size_column));
     vector<vector<int> > result_final(c->size_line, vector<int> (c->size_column));
+    
     MakeTransposeMatrix(&v, &result,c);
     MakeMultplicationMatrix(&v, &result,&result_final, c);
 
