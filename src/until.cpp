@@ -231,6 +231,30 @@ void StorData(unordered_map<string, vector<vector<int> > > *Umap, vector<vector<
     (*Umap)[c->key] = result_final;
 }
 
+void PrintMap(unordered_map<string,vector<vector<int> > > *Umap){
+
+    unordered_map<string,vector<vector<int> > >::iterator it;
+    vector<vector<int> >::iterator itr;
+    vector<int>::iterator itrv;
+
+    for(it = (*Umap).begin(); it != (*Umap).end(); ++it){
+
+        cout << "Key = " << it->first << endl;
+
+        for(itr = it->second.begin(); itr < it->second.end(); ++itr){
+
+            for(itrv = (*itr).begin(); itrv != (*itr).end(); ++itrv){
+
+                cout << *itrv << " ";
+            }
+
+            cout << endl;
+        }
+
+    }
+
+}
+
 void ReadFiles() {
 
     unordered_map<string, vector<vector<int> > > Umap;
@@ -242,6 +266,8 @@ void ReadFiles() {
     ReadFile_Coordinates(&c);
     cout << endl << endl;
     ReadFile_BigMatrix(&c, &Umap);
+
+    PrintMap(&Umap);
 
     return;
 }

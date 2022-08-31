@@ -37,7 +37,7 @@ void PrintMatrixQuandrant(vector<vector<int> > *v);
 void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c);
 void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c);
 void StorData(unordered_map<string,vector<vector<int> > > *Umap, vector<vector<int> > result_final, COO *c);
-
+void PrintMap(unordered_map<string,vector<vector<int> > > *Umap);
 /**
  * Funções Gerais 
  */
