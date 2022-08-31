@@ -2,6 +2,8 @@
 
 void InicializateCOO(COO *c) {
 
+    c = (COO*)malloc(sizeof(COO));
+     
     c->p1_i = 0;
     c->p1_j = 0;
     c->p2_i = 0;
@@ -25,12 +27,9 @@ void PrintMatrixQuandrant(vector<vector<int> > *v) {
     vector<vector<int> >::iterator it;
     vector<int>::iterator itr;
 
-    for(it = v->begin(); it < v->end(); ++it) {
+    for(it = v->begin(); it < v->end(); ++it){
 
-        for(itr = (*it).begin(); itr < (*it).end(); ++itr) {
-
-            cout << *itr << " ";
-        }
+        for(itr = (*it).begin(); itr < (*it).end(); ++itr){cout << *itr << " ";}
 
         cout << endl;
     }
@@ -40,9 +39,9 @@ void PrintMatrixQuandrant(vector<vector<int> > *v) {
 
 void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c) {
 
-    for (int i = 0; i < c->size_line; i++) {
+    for(int i = 0; i < c->size_line; i++){
 
-        for (int j = 0; j < c->size_column; j++) {
+        for(int j = 0; j < c->size_column; j++){
 
             result->at(j).at(i) = v->at(i).at(j);
         }
@@ -54,11 +53,11 @@ void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *resu
 
     int aux = 0;
 
-    for (int i = 0; i < c->size_line; i++) {
+    for(int i = 0; i < c->size_line; i++){
 
-        for (int j = 0; j < c->size_column; j++) {
+        for(int j = 0; j < c->size_column; j++){
 
-            for (int x = 0; x < c->p2_i; x++) {
+            for(int x = 0; x < c->p2_i; x++){
 
                 aux += v->at(i).at(x) * result->at(x).at(j);
 
@@ -78,14 +77,14 @@ void VerifySizeMatrix() {
     char del = ',';
     ifstream file("./src/input/original_matriz.txt");
 
-    if (file.is_open()) {
+    if(file.is_open()){
 
-        while (!file.eof()) {
+        while(!file.eof()){
 
             getline(file, line);
             stringstream sstream(line);
 
-            while (getline(sstream, token, del)) {
+            while(getline(sstream, token, del)){
 
                 count_column++;
             }
@@ -95,7 +94,7 @@ void VerifySizeMatrix() {
 
         cout << "Tamanho da matrix = (" << count_line << "," << count_column / count_line << ")\n";
 
-    } else { cout << "Erro ao abrir o arquivo!" << endl; }
+    }else{ cout << "Erro ao abrir o arquivo!" << endl; }
 
     file.close();
     return;
@@ -109,15 +108,15 @@ void TokenizarCoodinates(COO *c, string line_token, int count_line) {
     int count_column = 0;
 
     // Da linha 11 a 23 é possivel otimizar pois a repetição de codigo.
-    while (getline(sstream, token, del)) {
+    while(getline(sstream, token, del)){
 
-        if (count_line == 0) {
+        if(count_line == 0){
 
-            if (count_column == 0) { c->p1_i = stoi(token); } else { c->p1_j = stoi(token); }
+            if(count_column == 0){c->p1_i = stoi(token);} else{ c->p1_j = stoi(token);}
 
-        } else {
+        }else{
 
-            if (count_column == 0) { c->p2_i = stoi(token); } else { c->p2_j = stoi(token); }
+            if(count_column == 0){c->p2_i = stoi(token);} else{ c->p2_j = stoi(token);}
 
         }
 
@@ -125,16 +124,16 @@ void TokenizarCoodinates(COO *c, string line_token, int count_line) {
     }
 }
 
-void ReadFile_Coordinates(COO *c) {
+void ReadFile_Coordinates(COO *c){
 
     string line, token;
     int count_line = 0;
 
     ifstream file("./src/input/coordinates.txt");
 
-    if (file.is_open()) {
+    if(file.is_open()) {
 
-        while (!file.eof()) {
+        while(!file.eof()) {
 
             getline(file, line);
 
@@ -146,7 +145,7 @@ void ReadFile_Coordinates(COO *c) {
         cout << "p1 = " << c->p1_i << " , " << c->p1_j << endl;
         cout << "p2 = " << c->p2_i << " , " << c->p2_j << endl;
 
-    } else { cout << "Erro ao abrir o arquivo!" << endl; }
+    }else{ cout << "Erro ao abrir o arquivo!" << endl;}
 
     file.close();
     return;
@@ -163,7 +162,7 @@ void TokenizarQuadrante(COO *c, string line_token, int cont_line, vector<vector<
     int j = 0; // coluna da matriz de armazenamento
     //cont_line // linha da matriz de armazenamento
 
-    while (getline(sstream, token, del)) {
+    while(getline(sstream, token, del)){
 
         if (count_column >= c->p1_j && count_column <= c->p2_j) {
 
