@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
-
+#include <unordered_map>
 
 using namespace std;
 
@@ -28,11 +28,16 @@ typedef struct Coodinates{
 
 }COO;
 
+/**
+ * Funcoes auxiliares importantes
+ */
 void InicializateCOO(COO *c); // Inicializa a struct
 void SizeMatrixAll(COO *c); // coloca o tamanho das matrizes
 void PrintMatrixQuandrant(vector<vector<int> > *v);
 void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c);
 void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c);
+void StorData(unordered_map<string,vector<vector<int> > > *Umap, vector<vector<int> > result_final, COO *c);
+
 /**
  * Funções Gerais 
  */
@@ -43,7 +48,7 @@ void VerifySizeMatrix(); //Verifica quantas linhas e quantas colunas a matriz po
 /**
  * Funções relacionadas ao processamento da Matriz;
  */
-void ReadFile_BigMatrix(COO *c);
+void ReadFile_BigMatrix(COO *c, unordered_map<string,vector<vector<int> > > *Umap);
 void TokenizarQuadrante(COO *c, string line_token,int cont_line, vector<vector<int> > *v);
 void ReadFile_Coordinates(COO *c);
 void TokenizarCoodinates(COO *c, string line_token, int count_line);
