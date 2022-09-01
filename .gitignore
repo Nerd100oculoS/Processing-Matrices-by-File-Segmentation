@@ -108,6 +108,7 @@ Temporary Items
 *.icloud
 
 ### VisualStudioCode ###
+.vccode
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
