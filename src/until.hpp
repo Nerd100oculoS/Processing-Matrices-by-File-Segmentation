@@ -37,12 +37,12 @@ void InicializateCOO(COO *c); // Inicializa a struct
  * Funções Gerais 
  */
 void ReadFiles();
-void PrintMatriz(vector<vector<int> > *matriz);
 void ReadFileAutomatic();
-// Apenas para testar se a matriz original é uma matriz quadrada.
+void SizeMatrixAll(COO *c); // coloca o tamanho das matrizes e cria a chave
 void VerifySizeMatrix(); //Verifica quantas linhas e quantas colunas a matriz possui.
-int Menu(int op);
+void PrintMatrixQuandrant(vector<vector<int> > *v);
 
+// Funcões relacionadas ao Map
 void StorData(unordered_map<string,vector<vector<int> > > *Umap, vector<vector<int> > result_final, COO *c);
 void PrintMap(unordered_map<string,vector<vector<int> > > *Umap);
 
@@ -55,8 +55,6 @@ void TokenizarQuadrante(COO *c, string line_token,int cont_line, vector<vector<i
 void ReadFile_Coordinates(vector<COO> *c);
 void TokenizarCoodinates(COO *c, string line_token, int count_line);
 
-void SizeMatrixAll(COO *c); // coloca o tamanho das matrizes
-void PrintMatrixQuandrant(vector<vector<int> > *v);
 void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, COO *c);
 void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c);
 

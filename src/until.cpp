@@ -41,31 +41,26 @@ void MakeTransposeMatrix(vector<vector<int> > *v, vector<vector<int> > *result, 
 
         for(int j = 0; j < c->size_column; j++){
 
-            result->at(j).at(i) = v->at(i).at(j);
+            (*result)[j][i] = (*v)[i][j];
         }
     }
-
-    //PrintMatriz(result);
-
 }
 
 void MakeMultplicationMatrix(vector<vector<int> > *v, vector<vector<int> > *result, vector<vector<int> > *result_final, COO *c) {
 
     int aux = 0;
-    //cout << "Multiplication = " << c->size_line << "," << c->size_column << endl;
+
     for(int i = 0; i < c->size_line; i++){
 
         for(int j = 0; j < c->size_column; j++){
 
             for(int x = 0; x < c->size_line; x++){
 
-                aux += v->at(i).at(x) * result->at(x).at(j);
-                //cout << i << "," << x << " ";
-
+                aux += (*v)[i][x] * (*result)[x][j];
+            
             }
 
-            //cout << endl;
-            result_final->at(i).at(j) = aux;
+            (*result_final)[i][j] = aux;
             aux = 0;
         }
     }
@@ -77,7 +72,7 @@ void VerifySizeMatrix() {
     count_line = count_column = 0;
     string line, token;
     char del = ',';
-    ifstream file("./input/original_matriz.txt");
+    ifstream file("./src/input/original_matriz.txt");
 
     if(file.is_open()){
 
@@ -109,7 +104,6 @@ void TokenizarCoodinates(COO *c, string line_token, int count_line) {
     char del = ',';
     int count_column = 0;
 
-    // Da linha 11 a 23 é possivel otimizar pois a repetição de codigo.
     while(getline(sstream, token, del)){
 
         if(count_column < 2){
@@ -151,19 +145,10 @@ void ReadFile_Coordinates(vector<COO> *c){
 
             count_line++;
         }
-
-        //cout << "p1 = " << c->p1_i << " , " << c->p1_j << endl;
-        //cout << "p2 = " << c->p2_i << " , " << c->p2_j << endl;
-
+        
     }else{ cout << "Erro ao abrir o arquivo!" << endl;}
 
     file.close();
-
-    for(int i = 0; i < c->size(); i++){
-
-        cout << c->at(i).key << endl;
-    
-    }
 
     return;
 }
@@ -182,9 +167,7 @@ void TokenizarQuadrante(COO *c, string line_token, int cont_line, vector<vector<
 
         if (count_column >= c->p1_j && count_column <= c->p2_j) {
 
-            //cout << token << " ";
             (*v)[cont_line][j] = stoi(token);
-
             j++;
         }
 
@@ -209,7 +192,6 @@ void ReadFile_BigMatrix(vector<COO> *c, unordered_map<string, vector<vector<int>
             ifstream file("./src/input/original_matriz.txt");
 
             vector<vector<int> > v((*c)[i].size_line, vector<int>((*c)[i].size_column));
-            //cout << "cria vetor = " << (*c)[i].size_line << "," << (*c)[i].size_column << endl;
 
             if(file.is_open()){
 
@@ -217,37 +199,25 @@ void ReadFile_BigMatrix(vector<COO> *c, unordered_map<string, vector<vector<int>
 
                     getline(file, line_string);
                     
-                    // Erro esta aqui no count_line
                     if (count_line >= (*c)[i].p1_i && count_line <= (*c)[i].p2_i) {
 
-                        //COO aux = c->at(i);
                         TokenizarQuadrante(&(*c)[i], line_string, cont_line, &v);
                         cont_line++;
                     }
-                    //cout << endl;
                     count_line++;
                 }
-                
-                //PrintMatriz(&v);
-                //count_line = 1;
 
             } else { cout << "Erro ao abrir o arquivo!" << endl; }
 
             file.close();
-            //cout << endl;
-            //PrintMatriz(&v);
+            
+            
 
             vector<vector<int> > result((*c)[i].size_line, vector<int>((*c)[i].size_column));
             vector<vector<int> > result_final((*c)[i].size_line, vector<int>((*c)[i].size_column));
 
             MakeTransposeMatrix(&v, &result, &(*c)[i]);
-            //PrintMatriz(&result);
-            //return;
             MakeMultplicationMatrix(&v, &result, &result_final, &(*c)[i]);
-
-            //cout << endl;
-            //PrintMatrixQuandrant(&result_final);
-            //cout << endl;
 
             StorData(Umap, result_final, &(*c)[i]);
             
@@ -259,9 +229,7 @@ void ReadFile_BigMatrix(vector<COO> *c, unordered_map<string, vector<vector<int>
 
 void StorData(unordered_map<string, vector<vector<int> > > *Umap, vector<vector<int> > result_final, COO *c) {
 
-    //(*Umap)[c->key].insert(result_final);
-    //Umap->insert({c->key, result_final });
-    (*Umap)[c->key] = result_final;
+    (*Umap)[c->key] = result_final; // Atribui a matriz a sua respectiva chave
 }
 
 
@@ -279,7 +247,7 @@ void PrintMap(unordered_map<string,vector<vector<int> > > *Umap){
 
             for(itrv = (*itr).begin(); itrv != (*itr).end(); ++itrv){
 
-                cout << *itrv << " ";
+                cout << *itrv << "\t";
             }
 
             cout << endl;
@@ -292,6 +260,7 @@ void PrintMap(unordered_map<string,vector<vector<int> > > *Umap){
 
 //Funcao que testa o funcionamento de todas as funcoes
 void ReadFiles(){
+    VerifySizeMatrix();
 
     unordered_map<string, vector<vector<int> > > Umap;
     vector<COO> Vc;
@@ -307,17 +276,4 @@ void ReadFiles(){
     return;
 }
 
-void PrintMatriz(vector<vector<int> > *matriz){
-    
-    vector<vector<int> >::iterator it;
-    vector<int>::iterator itr;
-
-    for(it = matriz->begin(); it < matriz->end(); ++it){
-
-        for(itr = (*it).begin(); itr < (*it).end(); ++itr){cout << *itr << " ";}
-
-        cout << endl;
-    }
-
-}
 
