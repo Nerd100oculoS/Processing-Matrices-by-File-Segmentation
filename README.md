@@ -1,6 +1,11 @@
 <h1 align = "center">Processing Matrices by File Segmentation</h1>
 
+<h2>Súmario</h2>
+
 * [Introdução](#introduction)
+* [Desenvolvimento](#Desenvolvimento)
+  * [Exemplo de Impressão](#example)
+* [Compilar e Executar](#compile)
 
 <div id="introduction">
   
@@ -28,11 +33,11 @@
  Para testes, basta que o usuário entre no arquivo de coordenadas e acrescente as coordenadas desejadas conforme a formatação por vírgula e não deixe linhas vazias ao salvar. Além disso, ainda na etapa 1 dentro de cada posição do array, é salvo a chave em formato string "x1,j1 x2,j2".<br>
   A segunda etapa, pega o array de coordendas de quadrantes e verifica se as chaves já estão presentes na Tabela Hash. Se a chave não estiver no mapa, é feito então a tokenização do quadrante, a conversão para números inteiro e assim o armazenamento em uma matriz temporária do tipo inteiro.<br>
   A terceira etapa, pega a matriz temporária que etá com o quadrante já no formato de inteiro e faz as operações para encontrar a matriz transposta e então salva a transposta desta matriz em uma matriz auxiliar. Depois faz-se a multipliação da matriz temporária com a sua transposta e armazena o resultado em uma outra matriz auxiliar chamada de <i>"result_final"</i>.<br>
-  Por fim, a quarta etapa, armazena <i>"result_final"</i> em uma Tabela Hash com a sua respectiva chave correspondente ao quadrante que deu origem ao reultado final.
+  Por fim, a quarta etapa, armazena <i>"result_final"</i> em uma Tabela Hash com a sua respectiva chave correspondente ao quadrante que deu origem ao resultado final.
  
  </p>
   
-  <div id "example">
+  <div id="example">
   
   <h3> Exemplo de Impressão </h4>
 </p align="justify">
@@ -47,7 +52,7 @@ Vídeo 1 - Exemplo de funcionamento.
   </div>
 </div>
 
-# Compilar e Executar
+<h2 id="compile"> Compilar e Executar</h2>
 
 Utilize os comandos conforme suas funcões para compilar e executar
 
